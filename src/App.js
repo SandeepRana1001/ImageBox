@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Button from './component/buttons/Button'
+import Picture from './component/Picture/Picture'
+
+/* eslint-disable */
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      imgIndex: 1
+    }
+  }
+
+  nextSlide = () => {
+    this.setState((prevState) => ({
+      imgIndex: prevState.imgIndex + 1
+    }))
+  }
+
+  prevSlide = () => {
+    if (this.state.imgIndex > 1) {
+      this.setState((prevState) => ({
+        imgIndex: prevState.imgIndex - 1
+      }))
+    }
+  }
+
+
+
+  render() {
+    return (
+      <div className='App'>
+        <Picture index={this.state.imgIndex} />
+        <Button changeSlide={this.nextSlide} icon='fa-solid fa-chevron-right' />
+        <Button changeSlide={this.prevSlide} icon='fa-solid fa-chevron-left' />
+      </div>
+    );
+  }
 }
 
 export default App;
